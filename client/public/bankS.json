@@ -1,0 +1,68 @@
+{
+  "bankStatement": [
+    {
+      "date": "2024-12-01",
+      "type": "Withdrawal",
+      "payee": "ATM Withdrawal",
+      "debit": 200.0,
+      "credit": 0.0,
+      "status": "reconciled"
+    },
+    {
+      "date": "2024-12-02",
+      "type": "Deposit",
+      "payee": "Employer Payment",
+      "debit": 0.0,
+      "credit": 1500.0,
+      "status": "reconciled"
+    },
+    {
+      "date": "2024-12-03",
+      "type": "Payment",
+      "payee": "Online Shopping",
+      "debit": 120.5,
+      "credit": 0.0,
+      "status": "unreconciled"
+    },
+    {
+      "date": "2024-12-04",
+      "type": "Deposit",
+      "payee": "Gift Money",
+      "debit": 0.0,
+      "credit": 200.0,
+      "status": "reconciled"
+    },
+    {
+      "date": "2024-12-05",
+      "type": "Payment",
+      "payee": "Electric Bill",
+      "debit": 60.0,
+      "credit": 0.0,
+      "status": "unreconciled"
+    },
+    {
+      "date": "2024-12-06",
+      "type": "Withdrawal",
+      "payee": "Bank Teller",
+      "debit": 300.0,
+      "credit": 0.0,
+      "status": "reconciled"
+    },
+    {
+      "date": "2024-12-07",
+      "type": "Transfer",
+      "payee": "Savings Account",
+      "debit": 500.0,
+      "credit": 0.0,
+      "status": "unreconciled"
+    },
+    {
+      "date": "2024-12-08",
+      "type": "Deposit",
+      "payee": "Bonus",
+      "debit": 0.0,
+      "credit": 800.0,
+      "status": "reconciled"
+    }
+  ]
+}

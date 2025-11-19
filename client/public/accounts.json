@@ -1,0 +1,5 @@
+{
+  "assets": ["Current Asset", "Non-Current Asset"],
+  "liabilities": ["Non-Current Liability", "Current Liability"],
+  "equity": ["Shareholder's Equity", "Retained Earnings", "Common Stock"]
+}

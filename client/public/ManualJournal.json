@@ -1,0 +1,56 @@
+{
+  "userId": "user123",
+  "userName": "John Doe",
+  "manualJournals": [
+    {
+      "journalId": "journal1",
+      "journalDate": "2024-12-01",
+      "journalReference": "JV12345",
+      "narration": "Salary adjustment for employees",
+      "journalLines": [
+        {
+          "account": "Salary Expense",
+          "description": "Employee Salaries",
+          "debit": 2000,
+          "credit": 0
+        },
+        {
+          "account": "Cash",
+          "description": "Bank Withdrawal",
+          "debit": 0,
+          "credit": 2000
+        }
+      ],
+      "totalDebit": 2000,
+      "totalCredit": 2000,
+      "createdAt": "2024-12-01",
+      "updatedAt": "2024-12-01"
+    },
+    {
+      "journalId": "journal2",
+      "journalDate": "2024-12-01",
+      "journalReference": "JV12346",
+      "narration": "Office supplies purchase",
+      "journalLines": [
+        {
+          "account": "Office Supplies Expense",
+          "description": "Purchase of office supplies",
+          "debit": 500,
+          "credit": 0
+        },
+        {
+          "account": "Accounts Payable",
+          "description": "Vendor payment",
+          "debit": 0,
+          "credit": 500
+        }
+      ],
+      "totalDebit": 500,
+      "totalCredit": 500,
+      "createdAt": "2024-12-01",
+      "updatedAt": "2024-12-01"
+    }
+  ],
+  "createdAt": "2024-12-01",
+  "updatedAt": "2024-12-01"
+}
