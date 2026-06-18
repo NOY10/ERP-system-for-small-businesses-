@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const pastelColors = [
   "#f07167",
   "#335c67",
@@ -61,7 +63,7 @@ function ListEmployee({ employees }) {
     if (window.confirm("Are you sure you want to delete this staff member?")) {
       try {
         const response = await fetch(
-          `http://localhost:8000/deleteEmployee/${id}`,
+          `${API_BASE_URL}/deleteEmployee/${id}`,
           {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },

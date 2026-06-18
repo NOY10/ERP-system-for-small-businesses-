@@ -4,6 +4,8 @@ import DataTable from "../DataTable";
 import useAuthStore from "../../../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../../../config/api";
+
 const accountType = [
   {
     name: "Assets",
@@ -266,7 +268,7 @@ function EditJournal() {
     // console.log("debitTotal:", debitTotal);
 
     try {
-      const response = await fetch("http://localhost:8000/editJournal", {
+      const response = await fetch(`${API_BASE_URL}/editJournal`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

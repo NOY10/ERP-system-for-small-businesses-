@@ -6,6 +6,8 @@ import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const getRandomColor = (() => {
   const colorMap = new Map();
   return (id) => {
@@ -53,7 +55,7 @@ function StaffDetails() {
     const fetchEmployee = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/getSingleEmployee/${id}`,
+          `${API_BASE_URL}/getSingleEmployee/${id}`,
           {
             method: "GET",
             headers: {
@@ -79,7 +81,7 @@ function StaffDetails() {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllRoles", {
+        const response = await fetch(`${API_BASE_URL}/getAllRoles`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -105,7 +107,7 @@ function StaffDetails() {
     const fetchDepartments = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/getAllDepartments",
+          `${API_BASE_URL}/getAllDepartments`,
           {
             method: "GET",
             headers: {
@@ -137,7 +139,7 @@ function StaffDetails() {
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/updateEmployee/${id}`,
+        `${API_BASE_URL}/updateEmployee/${id}`,
         {
           method: "PUT",
           headers: {
@@ -163,7 +165,7 @@ function StaffDetails() {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteEmployee/${id}`,
+        `${API_BASE_URL}/deleteEmployee/${id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

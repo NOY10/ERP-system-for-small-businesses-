@@ -4,6 +4,8 @@ import ForP from "./forpas.webp";
 import Toast from "../../Components/Toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { API_BASE_URL } from "../../config/api";
+
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -21,8 +23,8 @@ function ForgotPassword() {
             // Dynamically choose the endpoint based on the role
             const endpoint =
                 role === "Owner"
-                    ? "http://localhost:8000/resetusers-password"
-                    : "http://localhost:8000/resetEmployee-password";
+                    ? `${API_BASE_URL}/resetusers-password`
+                    : `${API_BASE_URL}/resetEmployee-password`;
             
             const { data } = await axios.post(endpoint, { email });
             

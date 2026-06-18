@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaEllipsisV, FaPencilAlt, FaTrash } from "react-icons/fa";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
 import ListEmployee from "./listEmployee";
+import { API_BASE_URL } from "../../../config/api";
+
 const pastelColors = [
   "#f07167",
   "#335c67",
@@ -56,7 +58,7 @@ const EmployeeCard = ({ employee, isSelected, onSelect }) => {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteEmployee/${employee.id}`,
+        `${API_BASE_URL}/deleteEmployee/${employee.id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -177,7 +179,7 @@ const EmployeeGrid = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getallEmployees", {
+        const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -314,11 +316,7 @@ const EmployeeGrid = () => {
 
       {loading ? (
         <div className="flex justify-center items-center h-96">
-          <SlidingCubeLoader
-            loading={true}
-            size={50}
-            color="rgba(74, 144, 226, 1)"
-          />
+          <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
         </div>
       ) : isListView ? (
         <ListEmployee employees={filteredEmployees} />

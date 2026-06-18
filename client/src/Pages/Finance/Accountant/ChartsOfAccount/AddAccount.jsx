@@ -3,6 +3,8 @@ import { IoIosArrowDropdown } from "react-icons/io";
 import useAuthStore from "../../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const AddAccount = ({ onAddAccount, accountDataToEdit }) => {
   console.log("id", accountDataToEdit);
   const [accountData, setAccountData] = useState({
@@ -55,7 +57,7 @@ const AddAccount = ({ onAddAccount, accountDataToEdit }) => {
 
   const checkCodeUnique = async (code) => {
     try {
-      const response = await fetch("http://localhost:8000/getAllAccounts", {
+      const response = await fetch(`${API_BASE_URL}/getAllAccounts`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -105,8 +107,8 @@ const AddAccount = ({ onAddAccount, accountDataToEdit }) => {
 
     try {
       const endpoint = accountDataToEdit
-        ? `http://localhost:8000/updateAccount/${accountDataToEdit._id}`
-        : "http://localhost:8000/addAccount";
+        ? `${API_BASE_URL}/updateAccount/${accountDataToEdit._id}`
+        : `${API_BASE_URL}/addAccount`;
 
       const response = await fetch(endpoint, {
         method: accountDataToEdit ? "PUT" : "POST",

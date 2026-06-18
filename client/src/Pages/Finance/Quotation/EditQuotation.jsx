@@ -2,22 +2,25 @@ import { useEffect, useState } from "react";
 import { AiOutlineNumber } from "react-icons/ai";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { useLocation, useNavigate } from "react-router-dom";
+import NewLineTable from "../../../Components/NewLineTable";
 import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
-// import "./invoice.css";
-import NewLineTable from "../../../Components/NewLineTable";
+import { API_BASE_URL } from "../../../config/api";
 
-export default function EditInvoice() {
+// import "./invoice.css";
+
+export default function EditQuatation() {
   const navigate = useNavigate();
   const [invoiceDate, setInvoiceDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   const { state } = useLocation();
-  const [invoiceData, setInvoiceData] = useState(state?.entry || {});
+  const [invoiceData, setInvoiceData] = useState(state?.row || {});
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
-  const [tableData, setTableData] = useState(invoiceData.invoiceItems || []);
 
-  console.log("invoiceData" + invoiceData);
+  const [tableData, setTableData] = useState(invoiceData.quotationItems || []);
+
+  console.log("data" + invoiceData);
 
   const headers = [
     { label: "Item", field: "item" },
@@ -52,17 +55,19 @@ export default function EditInvoice() {
   };
 
   const { token } = useAuthStore();
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const updatedInvoice = {
         ...invoiceData,
-        invoiceItems: tableData, // Send updated invoice items
+        quotationItems: tableData,
         date: invoiceDate || invoiceData.date,
+        dueDate: invoiceDate || invoiceData.dueDate,
       };
 
       const response = await fetch(
-        `http://localhost:8000/updateInvoice/${invoiceData.id}`,
+        `${API_BASE_URL}/updateQuotation/${invoiceData.id}`,
         {
           method: "PUT",
           headers: {
@@ -74,35 +79,35 @@ export default function EditInvoice() {
       );
 
       if (!response.ok) {
-        throw new Error(`Failed to update invoice: ${await response.text()}`);
+        throw new Error("Failed to update quotation");
       }
 
       setShowToast(true);
       setError("");
       setTimeout(() => {
         setShowToast(false);
-        navigate("/invoice");
-      }, 4000);
+        navigate("/Quotation");
+      }, 2000);
     } catch (error) {
-      console.error("Error updating invoice:", error);
-      alert(`Error: ${error.message}`);
+      console.error("Error updating quotation:", error);
+      alert("Error updating quotation");
     }
   };
 
   const [rows, setRows] = useState(
-    invoiceData.invoiceItems || [
+    invoiceData.quotationItems || [
       { description: "", qty: 0, unitPrice: 0, amount: 0 },
     ]
   );
 
   useEffect(() => {
-    if (invoiceData.invoiceItems) {
-      setRows(invoiceData.invoiceItems);
+    if (invoiceData.quotationItems) {
+      setRows(invoiceData.quotationItems);
     }
   }, [invoiceData]);
 
   const HandleDownload = () => {
-    const invoiceItems = rows.map((row) => ({
+    const quotationItems = rows.map((row) => ({
       item: row.item,
 
       amount: (parseFloat(row.unitPrice) || 0) * (parseInt(row.qty, 10) || 1),
@@ -115,30 +120,28 @@ export default function EditInvoice() {
     console.log("Total Amount:", total);
 
     // Calculate total directly using the amount field
-    total = invoiceItems.reduce((acc, item) => {
+    total = quotationItems.reduce((acc, item) => {
       return acc + item.amount;
     }, 0);
 
     const PDFData = {
       to: invoiceData?.client,
       title: invoiceData?.name,
-      invoiceItems,
+      quotationItems,
       amount: total,
       owner: "Phurpa Tshering",
       date: invoiceData.date?.split("T")[0] || "",
       dueDate: dueDate,
     };
 
-    navigate("/InvoicePDF", { state: { PDFData } });
-    console.log("Data to reports: ", PDFData);
+    navigate("/QuotationPDF", { state: { PDFData } });
+    console.log("QuotationData to reports: ", PDFData);
   };
 
   return (
     <main className="p-5">
-      <div className="flex items-center justify-between px-4 bg-white shadow rounded-lg h-[70px] mb-4">
-        <span className="text-gray-700 font-semibold text-lg">
-          Edit Invoice
-        </span>
+      <div className="flex items-center justify-between p-4 mb-1 bg-white shadow rounded-lg">
+        <h2 className="text-xl font-semibold">Edit Quotation</h2>
         <div className="flex gap-2">
           <button
             onClick={HandleDownload}
@@ -181,11 +184,7 @@ export default function EditInvoice() {
                   <input
                     type="date"
                     className="border p-2 rounded w-full"
-                    // value={invoiceDate?.date}
                     defaultValue={invoiceData.date?.split("T")[0] || ""}
-                    // onChange={(e) =>
-                    //   setInvoiceData({ ...invoiceData, date: e.target.value })
-                    // }
                     onChange={(e) => setInvoiceDate(e.target.value)}
                   />
                 </div>
@@ -202,7 +201,7 @@ export default function EditInvoice() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Invoice Number
+                    Quotation Number
                   </label>
                   <div className="relative">
                     <input
@@ -242,7 +241,7 @@ export default function EditInvoice() {
         <Toast
           type="success"
           title="Invoice Updated Successfully!"
-          message="Invoice Updated Successfully!"
+          message="Quotation Updated Successfully!"
           duration={4000}
           onClose={() => setShowToast(false)}
         />

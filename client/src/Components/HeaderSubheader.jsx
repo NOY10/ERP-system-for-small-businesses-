@@ -3,6 +3,8 @@ import { IoMdAddCircle } from "react-icons/io";
 import AddAccount from "../Pages/Finance/Accountant/ChartsOfAccount/AddAccount";
 import useAuthStore from "../store/useAuthStore";
 
+import { API_BASE_URL } from "../config/api";
+
 const ExpenseDropdown = ({
   selectedHeader,
   selectedSubheader,
@@ -80,7 +82,7 @@ const ExpenseDropdown = ({
       console.log("Fetching data for header:", header);
 
       const response = await fetch(
-        `http://localhost:8000/getAccountsByType?type=${header}`,
+        `${API_BASE_URL}/getAccountsByType?type=${header}`,
         {
           method: "GET",
           headers: {

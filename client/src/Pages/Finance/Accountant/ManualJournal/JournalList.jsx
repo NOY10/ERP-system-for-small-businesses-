@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import EnhancedTable from "../../../../Components/EnhancedTable";
 import { useNavigate } from "react-router-dom";
 import useAuthStore from "../../../../store/useAuthStore";
+import { API_BASE_URL } from "../../../../config/api";
+
 function JournalList() {
   const headCells = [
     { id: "narration", disablePadding: false, label: "Narration" },
@@ -32,7 +34,7 @@ function JournalList() {
       try {
         setLoading(true);
 
-        const response = await fetch("http://localhost:8000/getAllJournals", {
+        const response = await fetch(`${API_BASE_URL}/getAllJournals`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +74,7 @@ function JournalList() {
 
   const handleDeleteExpenses = async (selectedIds) => {
     try {
-      const response = await fetch("http://localhost:8000/deleteJournals", {
+      const response = await fetch(`${API_BASE_URL}/deleteJournals`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

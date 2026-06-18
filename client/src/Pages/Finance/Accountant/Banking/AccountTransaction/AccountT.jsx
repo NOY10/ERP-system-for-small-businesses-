@@ -21,7 +21,7 @@ function AccountT() {
     severity: "success",
   });
 
-  const token = process.env.REACT_APP_TOKEN_KEY;
+  const token = import.meta.env.REACT_APP_TOKEN_KEY;
 
   useEffect(() => {
     const fetchExpenses = async () => {

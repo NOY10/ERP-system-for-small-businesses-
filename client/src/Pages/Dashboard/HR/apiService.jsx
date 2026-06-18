@@ -1,6 +1,7 @@
+import { API_BASE_URL } from "../../../config/api";
 //getallEmployees
 export const fetchTotalEmployees = async (token) => {
-  const response = await fetch("http://localhost:8000/getallEmployees", {
+  const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +14,7 @@ export const fetchTotalEmployees = async (token) => {
 
 //getAllDepartments
 export const fetchDepts = async (token) => {
-  const response = await fetch("http://localhost:8000/getAllDepartments", {
+  const response = await fetch(`${API_BASE_URL}/getAllDepartments`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -26,7 +27,7 @@ export const fetchDepts = async (token) => {
 
 //getAllLeaves
 export const fetchLeaveInfo = async (token) => {
-  const response = await fetch("http://localhost:8000/getAllLeaves", {
+  const response = await fetch(`${API_BASE_URL}/getAllLeaves`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -39,7 +40,7 @@ export const fetchLeaveInfo = async (token) => {
 
 //getAllLeaveTypes
 export const fetchLeaveTypes = async (token) => {
-  const response = await fetch("http://localhost:8000/getAllLeaveTypes", {
+  const response = await fetch(`${API_BASE_URL}/getAllLeaveTypes`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

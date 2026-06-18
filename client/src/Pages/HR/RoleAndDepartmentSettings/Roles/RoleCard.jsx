@@ -5,6 +5,8 @@ import Toast from "../../../../Components/Toast";
 import AddRoleForm from "./AddRoleForm";
 import DialogBox from "../../../../Components/Dialogbox";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const pastelColors = [
   "#f07167",
   "#335c67",
@@ -76,7 +78,7 @@ const RoleCard = ({ index, role, onEditRole, handleDeleteRole }) => {
     setDeleteDialog(false);
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteRole/${role._id}`,
+        `${API_BASE_URL}/deleteRole/${role._id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

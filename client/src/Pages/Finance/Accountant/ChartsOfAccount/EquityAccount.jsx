@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import AccountTable from "./AccountTable";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const EquityAccount = () => {
   const [accounts, setAccounts] = useState([]);
   const { token } = useAuthStore();
@@ -9,7 +11,7 @@ const EquityAccount = () => {
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllAccounts", {
+        const response = await fetch(`${API_BASE_URL}/getAllAccounts`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

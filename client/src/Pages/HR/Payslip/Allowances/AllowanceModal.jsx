@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Toast from "../../../../Components/Toast";
 import ToggleSwitch from "../../../../Components/ToggleSwitch";
 import useAuthStore from "../../../../store/useAuthStore";
+import { API_BASE_URL } from "../../../../config/api";
+
 const pastelColors = [
   '#f07167', '#335c67', '#7f5539', '#f28482', '#f5cac3',
   '#6b705c', '#cb997e', '#9d6b53', '#c9cba3', '#eae0d5',
@@ -160,7 +162,7 @@ const AllowanceModal = ({ onClose, onSave, editingAllowance }) => {
     const fetchEmployees = async () => {
       try {
         
-        const response = await fetch('http://localhost:8000/getallEmployees', {
+        const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

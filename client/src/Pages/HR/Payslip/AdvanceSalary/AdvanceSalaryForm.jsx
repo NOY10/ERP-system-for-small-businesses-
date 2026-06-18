@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const AdvanceSalaryForm = ({
   formType,
   formData = {},
@@ -28,7 +30,7 @@ const AdvanceSalaryForm = ({
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getallEmployees", {
+        const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

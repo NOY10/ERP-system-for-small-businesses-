@@ -11,6 +11,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import AddAccount from "./AddAccount";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 function AccountTable({ rows, actions }) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -45,8 +47,8 @@ function AccountTable({ rows, actions }) {
             const { name, type, code } = row;
             try {
               const [expenseResponse, incomeResponse] = await Promise.all([
-                axios.get("http://localhost:8000/getAllExpense", { headers }),
-                axios.get("http://localhost:8000/getallIncomes", { headers }),
+                axios.get(`${API_BASE_URL}/getAllExpense`, { headers }),
+                axios.get(`${API_BASE_URL}/getallIncomes`, { headers }),
               ]);
 
               const expenses = expenseResponse.data?.expenses || [];
@@ -156,7 +158,7 @@ function AccountTable({ rows, actions }) {
 
     try {
       // Make a DELETE request to the backend
-      const response = await fetch("http://localhost:8000/deleteAccount", {
+      const response = await fetch(`${API_BASE_URL}/deleteAccount`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

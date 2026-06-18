@@ -11,7 +11,9 @@ import useAppStore from "../store/useAppStore"; // correct hook import
 import NotificationCenter from "./Notification";
 import UserProfile from "./UserProfile";
 
-const SOCKET_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:8000";
+import { API_BASE_URL } from "../config/api";
+
+const SOCKET_URL = import.meta.env.REACT_APP_SERVER_URL || `${API_BASE_URL}`;
 
 const NavButton = ({ title, onClick, icon, dotColor }) => (
   <button

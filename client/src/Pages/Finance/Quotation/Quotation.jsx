@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EnhancedTable from "../../../Components/EnhancedTable";
-import useAuthStore from "../../../store/useAuthStore";
 import Daterange from "./Components/Daterange";
 import InvoiceHeader from "./Components/InvoiceHeader";
+import useAuthStore from "../../../store/useAuthStore";
+
+import { API_BASE_URL } from "../../../config/api";
 
 const headCells = [
-  { id: "name", numeric: true, disablePadding: true, label: "Invoice Name" },
+  { id: "name", numeric: true, disablePadding: true, label: "Quotation Name" },
 
   { id: "amount", numeric: true, disablePadding: false, label: "Amount (Nu)" },
   {
@@ -18,7 +20,7 @@ const headCells = [
   { id: "date", numeric: true, disablePadding: false, label: "Creation Date" },
 ];
 
-const Income = () => {
+const Quotation = () => {
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,14 +28,13 @@ const Income = () => {
   const [endDate, setEndDate] = useState(null);
   const [entry, setEntry] = useState([]);
 
-  // token
   const { token } = useAuthStore();
 
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:8000/getallInvoice", {
+        const response = await fetch(`${API_BASE_URL}/getallQuotation`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -46,38 +47,38 @@ const Income = () => {
         }
 
         const data = await response.json();
-        if (data && data.invoice) {
-          setEntry(data.invoice);
+        if (data && data.quotation) {
+          setEntry(data.quotation);
           console.log("Fetched Data:", data);
         } else {
           console.log("No invoice data found.");
         }
 
-        const formattedData = data.invoice.map((invoice) => {
+        const formattedData = data.quotation.map((quotation) => {
           // Get the first three items
-          const items = invoice.invoiceItems
+          const items = quotation.quotationItems
             .slice(0, 3)
             .map((item) => item.item)
             .join(", ");
 
           // If there are more than three items, append "..."
           const displayedItems =
-            invoice.invoiceItems.length > 3 ? `${items}, ...` : items;
+            quotation.quotationItems.length > 3 ? `${items}, ...` : items;
           //  sum of individual amount of the InvoiceItems
-          const totalAmount = invoice.invoiceItems.reduce(
+          const totalAmount = quotation.quotationItems.reduce(
             (total, item) => total + (parseFloat(item.amount) || 0),
             0
           );
 
           return {
-            id: invoice._id,
-            name: invoice.title,
-            client: invoice.to,
-            owner: invoice.owner,
-            date: invoice.date,
+            id: quotation._id,
+            name: quotation.title,
+            client: quotation.to,
+            owner: quotation.owner,
+            date: quotation.date,
             amount: totalAmount,
             items: displayedItems,
-            invoiceItems: invoice.invoiceItems.map((item) => ({
+            quotationItems: quotation.quotationItems.map((item) => ({
               item: item.item,
               amount: item.amount,
               unitPrice: item.unitPrice,
@@ -100,9 +101,9 @@ const Income = () => {
 
   useEffect(() => {}, [entry]);
 
-  const handleDeleteInvoices = async (selectedIds) => {
+  const handleDeleteQuotations = async (selectedIds) => {
     try {
-      const response = await fetch("http://localhost:8000/deleteInvoice", {
+      const response = await fetch(`${API_BASE_URL}/deleteQuotation`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -114,14 +115,14 @@ const Income = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to delete Invoice");
+        throw new Error(data.error || "Failed to delete Quotation");
       }
 
       // Remove deleted rows from the local state
       const updatedRows = rows.filter((row) => !selectedIds.includes(row.id));
       setRows(updatedRows);
     } catch (error) {
-      console.error("Error deleting Invoice", error);
+      console.error("Error deleting Quotation", error);
     }
   };
 
@@ -135,14 +136,16 @@ const Income = () => {
   };
 
   const filteredRows = filterRowsByDate(rows);
-
-  const onRowClick = (entry) => {
-    navigate("/Invoice/EditInvoice", { state: { entry } });
+  // const handleEdit = (entry) => {
+  //   navigate("/EditQuotation", { state: { entry } });
+  // };
+  const onRowClick = (row) => {
+    navigate("/Quotation/editQuotation", { state: { row } }); // navigate to the edit page with the row data
   };
 
   return (
     <div>
-      <div className="bg-gray-100 rounded-md flex items-center">
+      <div className="bg-gray-100  py-4 rounded-md flex items-center">
         <div className="flex-grow">
           <InvoiceHeader />
         </div>
@@ -174,7 +177,8 @@ const Income = () => {
             className="rounded-b-none"
             rows={filteredRows}
             headCells={headCells}
-            onDelete={handleDeleteInvoices}
+            onDelete={handleDeleteQuotations}
+            // onEdit={handleEdit}
             onEditBtn={false}
             onRowClick={onRowClick}
           />
@@ -184,4 +188,4 @@ const Income = () => {
   );
 };
 
-export default Income;
+export default Quotation;

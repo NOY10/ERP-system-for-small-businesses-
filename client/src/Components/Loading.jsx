@@ -1,15 +1,10 @@
 import React from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Loading() {
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <SlidingCubeLoader
-        loading={true}
-        size={50}
-        colors={["#2887D4BE", "#0976C3BE"]}
-        duration={1}
-      />
+      <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
     </div>
   );
 }

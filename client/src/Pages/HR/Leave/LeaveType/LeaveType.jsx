@@ -7,6 +7,8 @@ import DataTable from "../../Payslip/Deductions/DataTable";
 import LeaveCard from "./LeaveCard";
 import { Alert, Snackbar } from "@mui/material";
 import useAuthStore from "../../../../store/useAuthStore";
+import { API_BASE_URL } from "../../../../config/api";
+
 const columns = [
   { field: "leaveType", headerName: "LeaveType", flex: 1 },
   { field: "payment", headerName: "Payment", flex: 1 },
@@ -33,7 +35,7 @@ const LeaveType = () => {
     const fetchLeaveTypes = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8000/getAllLeaveTypes", {
+        const response = await fetch(`${API_BASE_URL}/getAllLeaveTypes`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -125,7 +127,7 @@ const LeaveType = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch("http://localhost:8000/deleteLeaveType", {
+      const response = await fetch(`${API_BASE_URL}/deleteLeaveType`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

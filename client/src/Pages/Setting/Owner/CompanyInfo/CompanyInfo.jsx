@@ -5,11 +5,13 @@ import AddCompanyInfo from "./AddCompanyInfo";
 import Toast from "../../../../Components/Toast";
 import useCompanyStore from "../../../../store/useCompanyStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const uploadToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("http://localhost:8000/uploadCompanyLogo", {
+  const res = await fetch(`${API_BASE_URL}/uploadCompanyLogo`, {
     method: "POST",
     body: formData,
   });
@@ -124,8 +126,8 @@ function CompanyInfo() {
     const dataToSend = { ...company, logo: profileImageUrl };
 
     const url = edit
-      ? `http://localhost:8000/editCompanyInfo`
-      : "http://localhost:8000/addCompanyInfo";
+      ? `${API_BASE_URL}/editCompanyInfo`
+      : `${API_BASE_URL}/addCompanyInfo`;
     const method = edit ? "PUT" : "POST";
 
     try {

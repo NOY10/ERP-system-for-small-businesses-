@@ -6,6 +6,8 @@ import Toast from "../../../../Components/Toast";
 import useAuthStore from "../../../../store/useAuthStore";
 import CardItem from "../Deductions/CardItem";
 import DataTable from "../Deductions/DataTable";
+import { API_BASE_URL } from "../../../../config/api";
+
 import DeductionModal from "./DeductionModal"; // Updated import
 
 const pastelColors = [
@@ -46,7 +48,7 @@ const Deductions = () => {
   useEffect(() => {
     const fetchDeductions = async () => {
       try {
-        const response = await fetch('http://localhost:8000/getAllDeductionTypes', {
+        const response = await fetch(`${API_BASE_URL}/getAllDeductionTypes`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -65,8 +67,8 @@ const Deductions = () => {
   const handleSave = async (deductionData) => {
     try {
       const url = editingDeduction
-        ? `http://localhost:8000/editDeductionType/${editingDeduction._id}` // Updated endpoint
-        : 'http://localhost:8000/addDeductionType'; // Updated endpoint
+        ? `${API_BASE_URL}/editDeductionType/${editingDeduction._id}` // Updated endpoint
+        : `${API_BASE_URL}/addDeductionType`; // Updated endpoint
 
       const method = editingDeduction ? 'PUT' : 'POST';
 
@@ -109,7 +111,7 @@ const Deductions = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/deleteDeductionType/${id}`, { // Updated endpoint
+      const response = await fetch(`${API_BASE_URL}/deleteDeductionType/${id}`, { // Updated endpoint
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

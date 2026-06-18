@@ -3,8 +3,9 @@ import { Alert, Button, Snackbar } from "@mui/material";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../../../store/useAuthStore";
+import { API_BASE_URL } from "../../../config/api";
 
-const EditExpense = () => {
+const EditIncome = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const initialData = location.state?.row || {}; // Get row data from state
@@ -15,12 +16,11 @@ const EditExpense = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  console.log(initialData);
 
   const handleSave = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/updateExpense/${formData.id}`,
+        `${API_BASE_URL}/updateIncome/${formData.id}`,
         {
           method: "PUT",
           headers: {
@@ -32,7 +32,7 @@ const EditExpense = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update expense");
+        throw new Error("Failed to update Income");
       }
 
       // Show success message
@@ -40,16 +40,16 @@ const EditExpense = () => {
 
       // Redirect after a short delay
       setTimeout(() => {
-        navigate("/Expense");
+        navigate("/Income");
       }, 2000);
     } catch (error) {
-      console.error("Error updating expense: ", error);
-      alert("Failed to update expense");
+      console.error("Error updating Income: ", error);
+      alert("Failed to update Income");
     }
   };
 
   const handleBack = () => {
-    navigate("/Expense");
+    navigate("/Income");
   };
 
   const handleCloseSnackbar = () => {
@@ -65,12 +65,12 @@ const EditExpense = () => {
         <ArrowBackIcon className="mr-2" /> Back
       </button>
 
-      <h2 className="text-3xl font-bold mb-6 justify-center">Edit Expense</h2>
+      <h2 className="text-3xl font-bold mb-6 justify-center">Edit Income</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="col-span-2 grid grid-cols-2 gap-6">
+        <div className="md:col-span-2 grid grid-cols-2 gap-6">
           <div>
             <label className="block font-medium mb-2 text-blue-500">
-              Expense Header
+              Income Header
             </label>
             <input
               type="text"
@@ -83,7 +83,7 @@ const EditExpense = () => {
           </div>
           <div>
             <label className="block font-medium mb-2 text-blue-500">
-              Expense Subheader
+              Income Subheader
             </label>
             <input
               type="text"
@@ -146,7 +146,7 @@ const EditExpense = () => {
       {/* Snackbar for success message */}
       <Snackbar
         open={successMessage}
-        autoHideDuration={3000}
+        autoHideDuration={4000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
@@ -154,14 +154,14 @@ const EditExpense = () => {
           onClose={handleCloseSnackbar}
           severity="success"
           sx={{ width: "100%", color:"white", backgroundColor:"#22c55e", "& .MuiAlert-icon": {
-            color: "white",
-          },}}
+        color: "white",
+      },}}
         >
-          Expense updated successfully!
+          Income updated successfully!
         </Alert>
       </Snackbar>
     </div>
   );
 };
 
-export default EditExpense;
+export default EditIncome;

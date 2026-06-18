@@ -10,8 +10,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import useAuthStore from "../../../../../store/useAuthStore";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import Loading from "../../../../../Components/Loading";
+
+import { API_BASE_URL } from "../../../../../config/api";
 
 const AccountHeader = ({
   accountName = "Unknown Account",
@@ -61,8 +63,8 @@ const TransactionTable = ({
         };
 
         const [expenseResponse, incomeResponse] = await Promise.all([
-          axios.get("http://localhost:8000/getAllExpense", { headers }),
-          axios.get("http://localhost:8000/getallIncomes", { headers }),
+          axios.get(`${API_BASE_URL}/getAllExpense`, { headers }),
+          axios.get(`${API_BASE_URL}/getallIncomes`, { headers }),
         ]);
 
         // Log raw data for debugging

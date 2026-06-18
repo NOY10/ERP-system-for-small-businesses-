@@ -3,6 +3,8 @@ import { Calendar, Clock, Users, Video, ChevronDown, X, Check, AlertTriangle, Re
 import useAuthStore  from '../../store/useAuthStore'; // Update with your actual path
 import { useNavigate } from 'react-router-dom';
 
+import { API_BASE_URL } from "../../config/api";
+
 // Time slot generator
 const generateTimeSlots = () => {
   const slots = [];
@@ -59,7 +61,7 @@ export default function MeetingScheduler() {
   useEffect(() => {
     const checkGoogleAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:8000/google/status", {
+        const response = await fetch(`${API_BASE_URL}/google/status`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -72,7 +74,7 @@ export default function MeetingScheduler() {
 
         if (!data.isAuthorized) {
           // Get auth URL if not authorized
-          const authUrlResponse = await fetch("http://localhost:8000/google/auth", {
+          const authUrlResponse = await fetch(`${API_BASE_URL}/google/auth`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -98,7 +100,7 @@ export default function MeetingScheduler() {
     const fetchEmployees = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("http://localhost:8000/getallEmployees", {
+        const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -183,7 +185,7 @@ const scheduleMeeting = async () => {
     console.log('Including owner:', includeOwner);
     
     // Make the API request
-    const response = await fetch("http://localhost:8000/schedule", {
+    const response = await fetch(`${API_BASE_URL}/schedule`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -227,7 +229,7 @@ const approveMeeting = async (meetingId) => {
     setIsLoading(true);
     
     // UPDATED: Changed from /meetings/approve/ to /approve/
-    const response = await fetch(`http://localhost:8000/approve/${meetingId}`, {
+    const response = await fetch(`${API_BASE_URL}/approve/${meetingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -260,7 +262,7 @@ const rejectMeeting = async (meetingId) => {
     setIsLoading(true);
     
     // UPDATED: Changed from /meetings/reject/ to /reject/
-    const response = await fetch(`http://localhost:8000/reject/${meetingId}`, {
+    const response = await fetch(`${API_BASE_URL}/reject/${meetingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -294,7 +296,7 @@ const cancelMeeting = async (meetingId) => {
     setIsLoading(true);
     
     // UPDATED: Changed from /meetings/cancel/ to /cancel/
-    const response = await fetch(`http://localhost:8000/cancel/${meetingId}`, {
+    const response = await fetch(`${API_BASE_URL}/cancel/${meetingId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -343,7 +345,7 @@ const fetchMeetings = async () => {
       throw new Error("User not authenticated");
     }
 
-    let endpoint = "http://localhost:8000";
+    let endpoint = `${API_BASE_URL}`;
     let config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -352,7 +354,7 @@ const fetchMeetings = async () => {
 
     // Only fetch pending meetings if user has permission
     if (activeTab === 'requests' && ['Accounts', 'HR', 'Owner'].includes(currentUser.role)) {
-      endpoint = "http://localhost:8000/status/pending";
+      endpoint = `${API_BASE_URL}/status/pending`;
     }
 
     const response = await fetch(endpoint, config);

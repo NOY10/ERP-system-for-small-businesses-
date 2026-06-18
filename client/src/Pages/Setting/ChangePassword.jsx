@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../../store/useAuthStore';
 
+import { API_BASE_URL } from "../../config/api";
+
 function ChangePassword() {
   const navigate = useNavigate();
   const [currentPassword, setCurrentPassword] = useState('');
@@ -23,7 +25,7 @@ function ChangePassword() {
     
     try {
       const response = await fetch(
-        `http://localhost:8000/change-password`,
+        `${API_BASE_URL}/change-password`,
         {
           method: "POST",
           headers: {

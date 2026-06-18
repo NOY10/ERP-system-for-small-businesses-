@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const safeString = (str) =>
   typeof str === "string" ? str.toLowerCase().trim() : "";
 
@@ -26,9 +28,9 @@ export const fetchAndCalculateYTD = async (
     // Fetch accounts, expenses, and incomes
     const [accountResponse, expenseResponse, incomeResponse] =
       await Promise.all([
-        axios.get("http://localhost:8000/getAllAccounts", { headers }),
-        axios.get("http://localhost:8000/getAllExpense", { headers }),
-        axios.get("http://localhost:8000/getAllIncomes", { headers }),
+        axios.get(`${API_BASE_URL}/getAllAccounts`, { headers }),
+        axios.get(`${API_BASE_URL}/getAllExpense`, { headers }),
+        axios.get(`${API_BASE_URL}/getAllIncomes`, { headers }),
       ]);
 
     const accounts = accountResponse.data?.accounts || [];

@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Toast from "../../Components/Toast";
 import ForP from "./forpas.webp";
 
+import { API_BASE_URL } from "../../config/api";
+
 const ResetUserPassword = () => {
   const { token } = useParams();
   const [password, setPassword] = useState("");
@@ -27,7 +29,7 @@ const ResetUserPassword = () => {
     setError(""); // Clear error if passwords match
 
     try {
-      const res = await fetch("http://localhost:8000/newusers-password", {
+      const res = await fetch(`${API_BASE_URL}/newusers-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password, token }),

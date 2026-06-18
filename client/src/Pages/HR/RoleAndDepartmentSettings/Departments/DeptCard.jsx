@@ -5,6 +5,8 @@ import Toast from "../../../../Components/Toast";
 import useAuthStore from "../../../../store/useAuthStore";
 import DialogBox from "../../../../Components/Dialogbox";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const pastelColors = [
   "#f07167",
   "#335c67",
@@ -71,7 +73,7 @@ const DeptCard = ({ index, dept, onEditDept, handleDeleteDept }) => {
     setShowOptions(false);
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteDept/${dept._id}`,
+        `${API_BASE_URL}/deleteDept/${dept._id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

@@ -2,23 +2,15 @@ import { Alert, Snackbar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EnhancedTable from "../../../Components/EnhancedTable";
-import ExpenseHeader from "../../../Components/ExpenseHeader";
-import PayableSummary from "../../../Components/PaymentSummary";
+import IncomeHeader from "../../../Components/IncomeHeader";
+import RecievableSummary from "../../../Components/RecievableSummary";
 import useAuthStore from "../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const headCells = [
-  {
-    id: "header",
-    numeric: true,
-    disablePadding: true,
-    label: "Expense Header",
-  },
-  {
-    id: "subheader",
-    numeric: true,
-    disablePadding: true,
-    label: "Expense Subheader",
-  },
+  { id: "header", numeric: true, disablePadding: true, label: "Income Header" },
+  { id: "subheader", numeric: true, disablePadding: true, label: "Income Subheader" },
   { id: "amount", numeric: true, disablePadding: false, label: "Amount (Nu)" },
   {
     id: "description",
@@ -29,8 +21,7 @@ const headCells = [
   { id: "date", numeric: true, disablePadding: false, label: "Date" },
 ];
 
-const Expense = () => {
-  const { token } = useAuthStore();
+const Income = () => {
   const navigate = useNavigate();
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,11 +33,13 @@ const Expense = () => {
     severity: "success",
   });
 
+  const { token } = useAuthStore();
+
   useEffect(() => {
-    const fetchExpenses = async () => {
+    const fetchIncomes = async () => {
       try {
         setLoading(true); // Set loading to true when fetch starts
-        const response = await fetch("http://localhost:8000/getAllExpense", {
+        const response = await fetch(`${API_BASE_URL}/getallIncomes`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -55,28 +48,28 @@ const Expense = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch expenses");
+          throw new Error("Failed to fetch Incomes");
         }
 
         const data = await response.json();
-        const formattedData = data.expenses.map((expense) => ({
-          id: expense._id,
-          header: expense.header,
-          subheader: expense.subheader,
-          amount: expense.amount,
-          description: expense.description,
-          date: expense.date,
+        const formattedData = data.incomes.map((income) => ({
+          id: income._id,
+          header: income.header,
+          subheader: income.subheader,
+          amount: income.amount,
+          description: income.description,
+          date: income.date,
         }));
 
         setRows(formattedData); // Set the fetched data to rows
       } catch (error) {
-        console.error("Error fetching expenses: ", error);
+        console.error("Error fetching incomes: ", error);
       } finally {
         setLoading(false); // Set loading to false after fetching data
       }
     };
 
-    fetchExpenses();
+    fetchIncomes();
   }, [token]);
 
   // Filter rows based on the selected date range
@@ -91,10 +84,12 @@ const Expense = () => {
   const handleSnackbarClose = () => {
     setSnackbar({ ...snackbar, open: false });
   };
-
-  const handleDeleteExpenses = async (selectedIds) => {
+  const handleEdit = (row) => {
+    navigate("/editIncome", { state: { row } });
+  };
+  const handleDeleteIncomes = async (selectedIds) => {
     try {
-      const response = await fetch("http://localhost:8000/deleteExpense", {
+      const response = await fetch(`${API_BASE_URL}/deleteIncome`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +101,7 @@ const Expense = () => {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to delete expenses");
+        throw new Error(data.error || "Failed to delete Incomes");
       }
 
       // Remove deleted rows from the local state
@@ -116,14 +111,14 @@ const Expense = () => {
       // Show success Snackbar
       setSnackbar({
         open: true,
-        message: "Expenses deleted successfully!",
+        message: "Incomes deleted successfully!",
         severity: "success",
       });
     } catch (error) {
-      console.error("Error deleting expenses:", error);
+      console.error("Error deleting Incomes:", error);
       setSnackbar({
         open: true,
-        message: error.message || "Failed to delete expenses",
+        message: error.message || "Failed to delete Incomes",
         severity: "error",
       });
     }
@@ -131,13 +126,9 @@ const Expense = () => {
 
   const filteredRows = filterRowsByDate(rows);
 
-  const handleEdit = (row) => {
-    navigate("/editExpense", { state: { row } });
-  };
-
   return (
     <div>
-      <ExpenseHeader className="mb-4" />
+      <IncomeHeader className="mb-4" />
 
       {/* Show loading skeleton if loading is true */}
       {loading ? (
@@ -154,7 +145,7 @@ const Expense = () => {
         </div>
       ) : (
         <>
-          <PayableSummary
+          <RecievableSummary
             className="mb-4"
             startDate={startDate}
             setStartDate={setStartDate}
@@ -166,8 +157,8 @@ const Expense = () => {
           <EnhancedTable
             rows={filteredRows}
             headCells={headCells}
-            onDelete={handleDeleteExpenses}
-            onEdit={handleEdit} // Pass delete handler to EnhancedTable
+            onDelete={handleDeleteIncomes}
+            onEdit={handleEdit} 
           />
         </>
       )}
@@ -193,4 +184,4 @@ const Expense = () => {
   );
 };
 
-export default Expense;
+export default Income;

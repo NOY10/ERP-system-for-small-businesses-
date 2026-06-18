@@ -5,6 +5,8 @@ import getMonthsInRange from "../Month";
 import { format } from "date-fns";
 import useCompanyStore from "../../../../store/useCompanyStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const ProfitAndLossStatement = ({ comparisonData }) => {
   const [incomeHeaders, setIncomeHeaders] = useState([]);
   const [expenseHeaders, setExpenseHeaders] = useState([]);
@@ -22,7 +24,7 @@ const ProfitAndLossStatement = ({ comparisonData }) => {
   useEffect(() => {
     const fetchAndProcessAccounts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllAccounts", {
+        const response = await fetch(`${API_BASE_URL}/getAllAccounts`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

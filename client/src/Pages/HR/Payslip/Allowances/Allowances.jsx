@@ -7,6 +7,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import CardItem from "../Deductions/CardItem";
 import DataTable from "../Deductions/DataTable";
 import AllowanceModal from "./AllowanceModal";
+import { API_BASE_URL } from "../../../../config/api";
+
 const pastelColors = [
   '#f07167', '#335c67', '#7f5539', '#f28482', '#f5cac3',
   '#6b705c', '#cb997e', '#9d6b53', '#c9cba3', '#eae0d5',
@@ -45,7 +47,7 @@ const Allowances = () => {
   useEffect(() => {
     const fetchAllowances = async () => {
       try {
-        const response = await fetch('http://localhost:8000/getAllAllowanceTypes', {
+        const response = await fetch(`${API_BASE_URL}/getAllAllowanceTypes`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -64,8 +66,8 @@ const Allowances = () => {
   const handleSave = async (allowanceData) => {
     try {
       const url = editingAllowance
-        ? `http://localhost:8000/editAllowanceType/${editingAllowance._id}`
-        : 'http://localhost:8000/addAllowanceType';
+        ? `${API_BASE_URL}/editAllowanceType/${editingAllowance._id}`
+        : `${API_BASE_URL}/addAllowanceType`;
   
       const method = editingAllowance ? 'PUT' : 'POST';
   
@@ -109,7 +111,7 @@ const Allowances = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8000/deleteAllowanceType/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/deleteAllowanceType/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

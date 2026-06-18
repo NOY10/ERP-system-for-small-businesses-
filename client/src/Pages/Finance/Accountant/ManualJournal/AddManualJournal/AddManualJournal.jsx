@@ -3,6 +3,8 @@ import DataTable from "../DataTable";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "../../../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
+import { API_BASE_URL } from "../../../../../config/api";
+
 // import { FaAngleDown } from "react-icons/fa";
 
 const accountType = [
@@ -359,7 +361,7 @@ function AddManualJournal() {
     // console.log("debitTotal:", debitTotal);
 
     try {
-      const response = await fetch("http://localhost:8000/addJournal", {
+      const response = await fetch(`${API_BASE_URL}/addJournal`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

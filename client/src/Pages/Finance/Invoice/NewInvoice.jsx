@@ -9,6 +9,8 @@ import NewLineTable from "../../../Components/NewLineTable";
 import "./invoice.css";
 import useCompanyStore from "../../../store/useCompanyStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 export default function NewInvoice() {
   const navigate = useNavigate();
   const [clientName, setClientName] = useState("");
@@ -112,7 +114,7 @@ export default function NewInvoice() {
     console.log("Invoice Data:", invoiceData);
 
     try {
-      const response = await fetch("http://localhost:8000/addInvoice", {
+      const response = await fetch(`${API_BASE_URL}/addInvoice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -22,7 +22,7 @@ import TextField from "@mui/material/TextField";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 import Toast from "../../../../Components/Toast";
 import useAuthStore from "../../../../store/useAuthStore";
@@ -30,6 +30,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 // Import jsPDF and its AutoTable plugin for PDF generation
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const pastelColors = [
   "#f07167", "#335c67", "#7f5539", "#f28482", "#f5cac3",
@@ -92,7 +94,7 @@ const PayslipTable = () => {
   // -----------------------------
   const fetchPayslips = async () => {
     try {
-      const response = await fetch("http://localhost:8000/payslips", {
+      const response = await fetch(`${API_BASE_URL}/payslips`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -105,7 +107,7 @@ const PayslipTable = () => {
   // Fetch payslips only for the selected period
   const fetchPayslipsForPeriod = async (start, end) => {
     try {
-      const response = await fetch("http://localhost:8000/payslips", {
+      const response = await fetch(`${API_BASE_URL}/payslips`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -123,7 +125,7 @@ const PayslipTable = () => {
   // Fetch employees (for single payslip generation)
   const fetchEmployees = async () => {
     try {
-      const response = await fetch("http://localhost:8000/getallEmployees", {
+      const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -183,7 +185,7 @@ const PayslipTable = () => {
 
     // Check if payslips already exist for this period
     try {
-      const response = await fetch("http://localhost:8000/payslips", {
+      const response = await fetch(`${API_BASE_URL}/payslips`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -214,10 +216,10 @@ const PayslipTable = () => {
           setIsLoading(false);
           return;
         }
-        url = "http://localhost:8000/generatePayslip";
+        url = `${API_BASE_URL}/generatePayslip`;
         body = { ...dates, employeeId: selectedEmployee, bankDetails: {} };
       } else if (selectedAction === "Bulk Updates") {
-        url = "http://localhost:8000/generate-all-payslips";
+        url = `${API_BASE_URL}/generate-all-payslips`;
         body = dates;
       }
       const response = await fetch(url, {
@@ -398,7 +400,7 @@ const PayslipTable = () => {
         const pdfDataURI = pdfDoc.output("datauristring");
         // Send email to backend endpoint
         const response = await fetch(
-          `http://localhost:8000/send-payslip-email/${payslip._id}`,
+          `${API_BASE_URL}/send-payslip-email/${payslip._id}`,
           {
             method: "POST",
             headers: {
@@ -498,7 +500,7 @@ const PayslipTable = () => {
   // -----------------------------
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const response = await fetch(`http://localhost:8000/update-status/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/update-status/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -521,7 +523,7 @@ const PayslipTable = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this payslip?")) {
       try {
-        const response = await fetch(`http://localhost:8000/deletePayslip/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/deletePayslip/${id}`, {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -718,7 +720,7 @@ const PayslipTable = () => {
 
       {isLoading ? (
         <div className="flex justify-center items-center h-96">
-          <SlidingCubeLoader loading={true} size={50} color="rgba(74, 144, 226, 1)" />
+          <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
         </div>
       ) : (
         <Paper sx={{ height: 600, width: "100%" }}>

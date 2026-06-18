@@ -4,6 +4,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import { FaRegEye } from "react-icons/fa";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const colorClasses = [
   "bg-red-500",
   "bg-blue-500",
@@ -63,7 +65,7 @@ const [snackbar, setSnackbar] = useState({
   };
 
   const updateLeaveStatus = (updatedLeave) => {
-    fetch(`http://localhost:8000/updateLeave/${updatedLeave._id}`, {
+    fetch(`${API_BASE_URL}/updateLeave/${updatedLeave._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

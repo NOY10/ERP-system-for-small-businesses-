@@ -13,7 +13,7 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!user) return;
-    const socket = io(process.env.REACT_APP_SERVER_URL, {
+    const socket = io(import.meta.env.REACT_APP_SERVER_URL, {
       query: { role: user.role },
     });
     setSocket(socket);

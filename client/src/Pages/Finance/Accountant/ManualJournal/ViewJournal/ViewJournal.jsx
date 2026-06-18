@@ -6,6 +6,8 @@ import { saveAs } from "file-saver";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
+import { API_BASE_URL } from "../../../../../config/api";
+
 const accountType = [
   {
     name: "Assets",
@@ -81,7 +83,7 @@ const ViewJournal = () => {
     const fetchJournal = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:8000/getByJournalID", {
+        const response = await fetch(`${API_BASE_URL}/getByJournalID`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -6,6 +6,8 @@ import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const PersonalDetails = ({ formData, handleChange, errors, setFormData }) => {
   const [countryCode, setCountryCode] = useState("975"); // Bhutan default
 
@@ -132,7 +134,7 @@ const ProfessionalDetails = ({ formData, handleChange, errors, setFormData }) =>
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllRoles", {
+        const response = await fetch(`${API_BASE_URL}/getAllRoles`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -158,7 +160,7 @@ const ProfessionalDetails = ({ formData, handleChange, errors, setFormData }) =>
     const fetchDepartments = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/getAllDepartments",
+          `${API_BASE_URL}/getAllDepartments`,
           {
             method: "GET",
             headers: {
@@ -412,7 +414,7 @@ const AddNewStaff = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/addEmployee", {
+      const response = await fetch(`${API_BASE_URL}/addEmployee`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

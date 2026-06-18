@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const LeaveCardModal = ({ onClose, onSave, editingAllowance }) => {
   const { token } = useAuthStore();
   const [allowance, setAllowance] = useState({
@@ -39,8 +41,8 @@ const LeaveCardModal = ({ onClose, onSave, editingAllowance }) => {
   const handleSave = async () => {
     try {
       const url = allowance._id
-        ? `http://localhost:8000/updateLeaveType/${allowance._id}`
-        : "http://localhost:8000/addLeaveType";
+        ? `${API_BASE_URL}/updateLeaveType/${allowance._id}`
+        : `${API_BASE_URL}/addLeaveType`;
 
       const method = allowance._id ? "PUT" : "POST";
 

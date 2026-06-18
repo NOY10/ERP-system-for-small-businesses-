@@ -5,6 +5,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import Toast from "../../../../Components/Toast";
 import RoleCard from "./RoleCard";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const Roles = () => {
   const [roles, setRoles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,7 +18,7 @@ const Roles = () => {
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllRoles", {
+        const response = await fetch(`${API_BASE_URL}/getAllRoles`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

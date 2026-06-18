@@ -1,10 +1,12 @@
 import { arrayMove } from "@dnd-kit/sortable";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import useAuthStore from "../../../../store/useAuthStore";
 import DateRange from "./DateRangeSelector";
 import Modal from "./Modal";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const safeString = (str) =>
   typeof str === "string" ? str.toLowerCase().trim() : "";
@@ -37,9 +39,9 @@ const TrialBalance = () => {
 
         const [accountResponse, expenseResponse, incomeResponse] =
           await Promise.all([
-            axios.get("http://localhost:8000/getAllAccounts", { headers }),
-            axios.get("http://localhost:8000/getAllExpense", { headers }),
-            axios.get("http://localhost:8000/getAllIncomes", { headers }),
+            axios.get(`${API_BASE_URL}/getAllAccounts`, { headers }),
+            axios.get(`${API_BASE_URL}/getAllExpense`, { headers }),
+            axios.get(`${API_BASE_URL}/getAllIncomes`, { headers }),
           ]);
 
         const accountsData = accountResponse.data?.accounts || [];
@@ -153,12 +155,7 @@ const TrialBalance = () => {
 
       {loading ? (
         <div className="flex justify-center items-center min-h-screen">
-          <SlidingCubeLoader
-            loading={true}
-            size={50}
-            colors={["#2887D4BE", "#0976C3BE"]}
-            duration={1}
-          />
+          <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
         </div>
       ) : (
         <>

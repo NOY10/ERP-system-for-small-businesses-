@@ -5,6 +5,8 @@ import Toast from "../../../../Components/Toast";
 import useAuthStore from "../../../../store/useAuthStore";
 import DeptCard from "./DeptCard";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,7 +19,7 @@ const Departments = () => {
     const fetchDepartments = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/getAllDepartments",
+          `${API_BASE_URL}/getAllDepartments`,
           {
             method: "GET",
             headers: {

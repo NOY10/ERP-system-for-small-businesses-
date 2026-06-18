@@ -3,6 +3,8 @@ import DialogBox from "../../../Components/Dialogbox";
 import useAuthStore from "../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../config/api";
+
 function AddUser({
   onAddUser,
   onEditUser,
@@ -64,7 +66,7 @@ function AddUser({
         };
 
         const response = await fetch(
-          `http://localhost:8000/updateEmployee/${selectedUser.id}`,
+          `${API_BASE_URL}/updateEmployee/${selectedUser.id}`,
           {
             method: "PUT",
             headers: {
@@ -103,7 +105,7 @@ function AddUser({
           salary: 0,
         };
 
-        const response = await fetch("http://localhost:8000/addEmployee", {
+        const response = await fetch(`${API_BASE_URL}/addEmployee`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

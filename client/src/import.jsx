@@ -1,6 +1,6 @@
 //auth
-export { default as Login } from "./Pages/Auth/Login.js";
-export { default as SignUp } from "./Pages/Auth/SignUp.js";
+export { default as Login } from "./Pages/Auth/Login.jsx";
+export { default as SignUp } from "./Pages/Auth/SignUp.jsx";
 export { default as ForgotPassword } from "./Pages/Auth/ForgotPassword.jsx";
 export { default as ResetUserPassword } from "./Pages/Auth/ResetUserPassword.jsx";
 export { default as ResetEmployeePassword } from "./Pages/Auth/ResetEmployeePassword.jsx";
@@ -23,31 +23,31 @@ export { default as ManualJournal } from "./Pages/Finance/Accountant/ManualJourn
 export { default as ViewJournal } from "./Pages/Finance/Accountant/ManualJournal/ViewJournal/ViewJournal.jsx";
 //-sales
 //Income
-export { default as EditIncome } from "./Pages/Finance/Income/EditIncome.js";
-export { default as Income } from "./Pages/Finance/Income/Income.js";
-export { default as NewIncome } from "./Pages/Finance/Income/NewIncome.js";
+export { default as EditIncome } from "./Pages/Finance/Income/EditIncome.jsx";
+export { default as Income } from "./Pages/Finance/Income/Income.jsx";
+export { default as NewIncome } from "./Pages/Finance/Income/NewIncome.jsx";
 
 //Invoice
-export { default as InvoicePDF } from "./Pages/Finance/Invoice/Components/InvoicePDF.js";
-export { default as EditInvoice } from "./Pages/Finance/Invoice/EditInvoice.js";
-export { default as Invoice } from "./Pages/Finance/Invoice/invoice.js";
-export { default as NewInvoice } from "./Pages/Finance/Invoice/NewInvoice.js";
+export { default as InvoicePDF } from "./Pages/Finance/Invoice/Components/InvoicePDF.jsx";
+export { default as EditInvoice } from "./Pages/Finance/Invoice/EditInvoice.jsx";
+export { default as Invoice } from "./Pages/Finance/Invoice/invoice.jsx";
+export { default as NewInvoice } from "./Pages/Finance/Invoice/NewInvoice.jsx";
 
-export { default as EditExpense } from "./Pages/Finance/Expense/EditExpense.js";
-export { default as Expense } from "./Pages/Finance/Expense/Expense.js";
-export { default as NewExpense } from "./Pages/Finance/Expense/NewExpense.js";
+export { default as EditExpense } from "./Pages/Finance/Expense/EditExpense.jsx";
+export { default as Expense } from "./Pages/Finance/Expense/Expense.jsx";
+export { default as NewExpense } from "./Pages/Finance/Expense/NewExpense.jsx";
 
-export { default as QuotationPDF } from "./Pages/Finance/Quotation/Components/QuotationPDF.js";
-export { default as EditQuotation } from "./Pages/Finance/Quotation/EditQuotation.js";
-export { default as NewQuotation } from "./Pages/Finance/Quotation/NewQuotation.js";
-export { default as Quotation } from "./Pages/Finance/Quotation/Quotation.js";
+export { default as QuotationPDF } from "./Pages/Finance/Quotation/Components/QuotationPDF.jsx";
+export { default as EditQuotation } from "./Pages/Finance/Quotation/EditQuotation.jsx";
+export { default as NewQuotation } from "./Pages/Finance/Quotation/NewQuotation.jsx";
+export { default as Quotation } from "./Pages/Finance/Quotation/Quotation.jsx";
 export { default as Reports } from "./Pages/Finance/Reports/report.jsx";
 
 export { default as InvoiceQuotationImport } from "./Pages/Finance/InvoiceQuotationImport.jsx";
 
 // reports
 
-export { default as BalanceSheet } from "./Pages/Finance/Reports/BalanceSheet/BalanceSheet.js";
+export { default as BalanceSheet } from "./Pages/Finance/Reports/BalanceSheet/BalanceSheet.jsx";
 export { default as CashFlowStatement } from "./Pages/Finance/Reports/CashFlowStatement/CashFlow.jsx";
 export { default as ProfitandLoss } from "./Pages/Finance/Reports/ProfitandLoss/ProfitandLoss.jsx";
 export { default as TrialBalance } from "./Pages/Finance/Reports/TrialBalance/TrialBalance.jsx";
@@ -66,7 +66,7 @@ export { default as AdvanceSalary } from "./Pages/HR/Payslip/AdvanceSalary/Advan
 export { default as AddNewStaff } from "./Pages/HR/StaffInfo/addnewStaff.jsx";
 export { default as StaffDetails } from "./Pages/HR/StaffInfo/staffDetails.jsx";
 export { default as StaffInformation } from "./Pages/HR/StaffInfo/staffInformation.jsx";
-export { default as Unauthorized } from "./Pages/Unauthorized.js";
+export { default as Unauthorized } from "./Pages/Unauthorized.jsx";
 //Leave
 export { default as Leave } from "./Pages/HR/Leave/leave.jsx";
 

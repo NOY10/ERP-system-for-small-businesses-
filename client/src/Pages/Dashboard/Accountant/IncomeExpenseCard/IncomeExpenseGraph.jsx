@@ -2,6 +2,8 @@ import { BarChart } from "@mui/x-charts/BarChart";
 import React, { memo, useEffect, useState } from "react";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const currentDate = new Date(); // Use real current date
 
 const filterDataByDropdown = (data, dropdown) => {
@@ -127,7 +129,7 @@ function IncomeExpense({ yearDropDown }) {
         setLoading(true);
 
         const expenseResponse = await fetch(
-          "http://localhost:8000/getallexpense",
+          `${API_BASE_URL}/getallexpense`,
           {
             method: "GET",
             headers: {
@@ -138,7 +140,7 @@ function IncomeExpense({ yearDropDown }) {
         );
 
         const incomeResponse = await fetch(
-          "http://localhost:8000/getallIncomes",
+          `${API_BASE_URL}/getallIncomes`,
           {
             method: "GET",
             headers: {

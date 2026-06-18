@@ -5,6 +5,8 @@ import useAuthStore from "../../store/useAuthStore";
 import log from "./log.svg";
 import useCompanyStore from "../../store/useCompanyStore";
 
+import { API_BASE_URL } from "../../config/api";
+
 const Login = () => {
   const { login } = useAuthStore();
   const { setCompanyInfo } = useCompanyStore();
@@ -18,8 +20,8 @@ const Login = () => {
   const handleLogin = async () => {
     const endpoint =
       role === "Owner"
-        ? "http://localhost:8000/signinUser"
-        : "http://localhost:8000/signinEmployee";
+        ? `${API_BASE_URL}/signinUser`
+        : `${API_BASE_URL}/signinEmployee`;
 
     try {
       const response = await fetch(endpoint, {
@@ -49,7 +51,7 @@ const Login = () => {
         if (role === "Owner") {
           try {
             const companyRes = await fetch(
-              "http://localhost:8000/viewCompanyInfo",
+              `${API_BASE_URL}/viewCompanyInfo`,
               {
                 method: "GET",
                 headers: {
@@ -73,7 +75,7 @@ const Login = () => {
         } else {
           try {
             const companyRes = await fetch(
-              "http://localhost:8000/employee/viewCompanyInfo",
+              `${API_BASE_URL}/employee/viewCompanyInfo`,
               {
                 method: "GET",
                 headers: {

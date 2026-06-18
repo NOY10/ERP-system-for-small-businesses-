@@ -5,6 +5,8 @@ import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { MdOutlinePending } from "react-icons/md";
 import useAuthStore from "../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const LeaveHistory = ({ leaveHistory, onViewDetails }) => {
   const { token } = useAuthStore();
   const [rows, setRows] = useState([]);
@@ -85,7 +87,7 @@ const LeaveHistory = ({ leaveHistory, onViewDetails }) => {
   const handleDelete = async () => {
     if (selectedRows.length > 0) {
       try {
-        const response = await fetch("http://localhost:8000/deleteLeave", {
+        const response = await fetch(`${API_BASE_URL}/deleteLeave`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

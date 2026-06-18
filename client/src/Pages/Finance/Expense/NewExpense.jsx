@@ -9,6 +9,8 @@ import Tesseract from "tesseract.js";
 import useAuthStore from "../../../store/useAuthStore";
 import ExpenseDropdown from "../../../Components/HeaderSubheader";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const NewExpense = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState("");
@@ -75,7 +77,7 @@ const NewExpense = () => {
       date,
     };
     try {
-      const response = await fetch("http://localhost:8000/addExpense", {
+      const response = await fetch(`${API_BASE_URL}/addExpense`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

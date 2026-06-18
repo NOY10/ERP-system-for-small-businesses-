@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import ProfitAndLossStatement from "./ProfitAndLossStatement";
 import DateRange from "../DateRange";
 import useAuthStore from "../../../../store/useAuthStore";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const ParentComponent = () => {
   const [ComparisonData, setComparisonData] = useState([]);
@@ -27,11 +29,11 @@ const ParentComponent = () => {
         };
 
         const incomeResponse = await fetch(
-          "http://localhost:8000/getallIncomes",
+          `${API_BASE_URL}/getallIncomes`,
           fetchOptions
         );
         const expenseResponse = await fetch(
-          "http://localhost:8000/getAllExpense",
+          `${API_BASE_URL}/getAllExpense`,
           fetchOptions
         );
 
@@ -80,12 +82,7 @@ const ParentComponent = () => {
       />
       {loading ? (
         <div className="flex justify-center items-center min-h-screen">
-          <SlidingCubeLoader
-            loading={true}
-            size={50}
-            colors={["#2887D4BE", "#0976C3BE"]}
-            duration={1}
-          />
+          <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
         </div>
       ) : (
         <ProfitAndLossStatement comparisonData={ComparisonData} />

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Drawer from "./Components/Drawer.jsx";
 import Header from "./Components/Header.jsx";
-import ProtectedRoute from "./Components/ProtectedRoutes.js";
+import ProtectedRoute from "./Components/ProtectedRoutes.jsx";
 
 import useAppStore from "./store/useAppStore";
 import {
@@ -67,8 +67,8 @@ import {
   InvoiceQuotationImport,
   InterviewSchedule,
 } from "./import";
-import TransactionRecord from "./Pages/Finance/Accountant/ChartsOfAccount/Records/TransactionRecords.js";
-import useAuthStore from "./store/useAuthStore.js";
+import TransactionRecord from "./Pages/Finance/Accountant/ChartsOfAccount/Records/TransactionRecords.jsx";
+import useAuthStore from "./store/useAuthStore.jsx";
 
 const INACTIVITY_LIMIT = 3600000; // 1 hour in milliseconds
 

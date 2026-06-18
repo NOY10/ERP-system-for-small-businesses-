@@ -5,10 +5,12 @@ import SendIcon from "@mui/icons-material/Send";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable"; // Import autoTable plugin
 import React, { useEffect, useState } from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useParams } from "react-router-dom";
 import Toast from "../../../Components/Toast";
 import useAuthStore from "../../../store/useAuthStore";
+
+import { API_BASE_URL } from "../../../config/api";
 
 const Payslip = () => {
   const { payslipId } = useParams();
@@ -26,7 +28,7 @@ const Payslip = () => {
   // Fetch payslip details on mount
   const fetchPayslipDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/payslip/${payslipId}`, {
+      const response = await fetch(`${API_BASE_URL}/payslip/${payslipId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await response.json();
@@ -272,7 +274,7 @@ const Payslip = () => {
     try {
       const doc = generatePDF();
       const pdfBase64 = doc.output("datauristring");
-      const response = await fetch(`http://localhost:8000/send-payslip-email/${payslipId}`, {
+      const response = await fetch(`${API_BASE_URL}/send-payslip-email/${payslipId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -313,7 +315,7 @@ const Payslip = () => {
   const handleUpdatePayslip = async () => {
     setUpdating(true);
     try {
-      const response = await fetch(`http://localhost:8000/update-payslip/${payslipId}`, {
+      const response = await fetch(`${API_BASE_URL}/update-payslip/${payslipId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -361,7 +363,7 @@ const Payslip = () => {
   if (loading || !payslipData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <SlidingCubeLoader loading={true} size={50} color="rgba(74, 144, 226, 1)" />
+        <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
       </div>
     );
   }

@@ -6,6 +6,8 @@ import { createPortal } from "react-dom";
 import DialogBox from "../../../../Components/Dialogbox";
 import { IoMdAddCircle } from "react-icons/io";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const DataTable = ({
   headers = [],
   accountType = [],
@@ -107,7 +109,7 @@ const DataTable = ({
       });
 
       const response = await fetch(
-        `http://localhost:8000/getAccountsByType?type=${header}`,
+        `${API_BASE_URL}/getAccountsByType?type=${header}`,
         {
           method: "GET",
           headers: {

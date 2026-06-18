@@ -16,6 +16,8 @@ import AddUser from "./AddUser";
 import useAuthStore from "../../../store/useAuthStore";
 import { useNavigate } from "react-router-dom";
 
+import { API_BASE_URL } from "../../../config/api";
+
 function UserDataGrid() {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,7 +40,7 @@ function UserDataGrid() {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getallEmployees", {
+        const response = await fetch(`${API_BASE_URL}/getallEmployees`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -98,7 +100,7 @@ function UserDataGrid() {
       await Promise.all(
         selectedRows.map(async (id) => {
           const response = await fetch(
-            `http://localhost:8000/deleteEmployee/${id}`,
+            `${API_BASE_URL}/deleteEmployee/${id}`,
             {
               method: "DELETE",
               headers: {

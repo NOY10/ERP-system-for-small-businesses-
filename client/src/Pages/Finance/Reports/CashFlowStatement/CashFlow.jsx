@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import useAuthStore from "../../../../store/useAuthStore";
 import DateRange from "../DateRange";
 import ParentCF from "./ParentCF";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const CashFlow = () => {
   const [comparisonData, setComparisonData] = useState([]);
@@ -43,11 +45,11 @@ const CashFlow = () => {
         };
 
         const incomeResponse = await fetch(
-          "http://localhost:8000/getallIncomes",
+          `${API_BASE_URL}/getallIncomes`,
           fetchOptions
         );
         const expenseResponse = await fetch(
-          "http://localhost:8000/getAllExpense",
+          `${API_BASE_URL}/getAllExpense`,
           fetchOptions
         );
 
@@ -85,11 +87,7 @@ const CashFlow = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-100 to-white">
-        <SlidingCubeLoader
-          loading={true}
-          size={50}
-          color="rgba(74, 144, 226, 1)"
-        />
+        <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
       </div>
     );
   }

@@ -5,6 +5,8 @@ import { RxCrossCircled } from "react-icons/rx";
 import useAuthStore from "../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const LeaveDetailsModal = ({ leave, onClose, onStatusUpdate }) => {
   const { token } = useAuthStore();
   const [showRejectModal, setShowRejectModal] = useState(false);
@@ -34,7 +36,7 @@ const LeaveDetailsModal = ({ leave, onClose, onStatusUpdate }) => {
 
     console.log("Updated Leave Payload:", updatedLeave);
 
-    fetch(`http://localhost:8000/updateLeave/${leave._id}`, {
+    fetch(`${API_BASE_URL}/updateLeave/${leave._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

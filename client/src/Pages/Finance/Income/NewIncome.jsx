@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import ExpenseDropdown from "../../../Components/HeaderSubheader";
 import useAuthStore from "../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const NewIncome = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState("");
@@ -81,7 +83,7 @@ const NewIncome = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/addIncome", {
+      const response = await fetch(`${API_BASE_URL}/addIncome`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

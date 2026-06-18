@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import * as XLSX from "xlsx";
 
 import { useLocation, useNavigate } from "react-router-dom";
 import FileUploader from "../../Components/FileUploader";
+import { readImportFile } from "../../utils/importFileParser";
 
 function InvoiceQuotationImport() {
   const [previewData, setPreviewData] = useState([]);
@@ -27,7 +27,7 @@ function InvoiceQuotationImport() {
     }
 
     try {
-      const data = await readFile(selectedFile);
+      const data = await readImportFile(selectedFile);
 
       // Validate headers
       if (data.length > 0) {
@@ -51,28 +51,6 @@ function InvoiceQuotationImport() {
       console.error("Error reading file:", error);
       alert("Error reading file. Please check the format and try again.");
     }
-  };
-
-  const readFile = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        try {
-          const data = new Uint8Array(e.target.result);
-          const workbook = XLSX.read(data, { type: "array" });
-          const firstSheetName = workbook.SheetNames[0];
-          const worksheet = workbook.Sheets[firstSheetName];
-          const jsonData = XLSX.utils.sheet_to_json(worksheet);
-          resolve(jsonData);
-        } catch (error) {
-          reject(error);
-        }
-      };
-
-      reader.onerror = (error) => reject(error);
-      reader.readAsArrayBuffer(file);
-    });
   };
 
   const handleNext = () => {
@@ -157,7 +135,7 @@ function InvoiceQuotationImport() {
 
             <FileUploader
               onFileSelect={handleFileSelect}
-              acceptedFormats={["csv", "tsv", "xls", "xlsx"]}
+              acceptedFormats={["csv", "tsv", "xlsx"]}
               maxSizeMB={25}
             />
 
@@ -176,7 +154,7 @@ function InvoiceQuotationImport() {
                 className="text-blue-600 hover:underline"
                 download
               >
-                sample xls file
+                sample xlsx file
               </a>
               and compare it to your import file to ensure you have the file
               perfect for the import.
@@ -191,7 +169,7 @@ function InvoiceQuotationImport() {
                   <strong>Amount</strong>.
                 </li>
                 <li>
-                  You can download the sample xls file to get detailed
+                  You can download the sample xlsx file to get detailed
                   information about the data fields used while importing.
                 </li>
                 <li>

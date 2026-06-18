@@ -3,6 +3,8 @@ import { Calendar, Clock, Mail, Link, AlertTriangle, Check, ArrowLeft, User, Bri
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '../../store/useAuthStore';
 
+import { API_BASE_URL } from "../../config/api";
+
 // Time slot generator (same as in SchelduleMeeting)
 const generateTimeSlots = () => {
   const slots = [];
@@ -54,7 +56,7 @@ export default function InterviewScheduler() {
   useEffect(() => {
     const checkGoogleAuthStatus = async () => {
       try {
-        const response = await fetch("http://localhost:8000/google/status", {
+        const response = await fetch(`${API_BASE_URL}/google/status`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -67,7 +69,7 @@ export default function InterviewScheduler() {
 
         if (!data.isAuthorized) {
           // Get auth URL if not authorized
-          const authUrlResponse = await fetch("http://localhost:8000/google/auth", {
+          const authUrlResponse = await fetch(`${API_BASE_URL}/google/auth`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
@@ -133,7 +135,7 @@ export default function InterviewScheduler() {
         includeOwner
       };
       
-      const response = await fetch("http://localhost:8000/schedule-interview", {
+      const response = await fetch(`${API_BASE_URL}/schedule-interview`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

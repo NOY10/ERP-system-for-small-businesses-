@@ -3,6 +3,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import Toast from "../../../../Components/Toast";
 import Dialogbox from "../../../../Components/Dialogbox";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const AddDepartmentForm = ({
   title,
   isVisible,
@@ -35,8 +37,8 @@ const AddDepartmentForm = ({
     }
 
     const url = existingDept
-      ? `http://localhost:8000/updateDept/${existingDept._id}`
-      : "http://localhost:8000/addDept";
+      ? `${API_BASE_URL}/updateDept/${existingDept._id}`
+      : `${API_BASE_URL}/addDept`;
     const method = existingDept ? "PUT" : "POST";
 
     try {

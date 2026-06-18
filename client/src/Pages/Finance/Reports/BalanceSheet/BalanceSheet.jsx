@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import useAuthStore from "../../../../store/useAuthStore";
 import DateRange from "../DateRange";
 import ParentBS from "./ParentBS";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const BalanceSheet = () => {
   const [comparisonData, setComparisonData] = useState([]); // Updated state variable
@@ -26,11 +28,11 @@ const BalanceSheet = () => {
         };
 
         const incomeResponse = await fetch(
-          "http://localhost:8000/getallIncomes",
+          `${API_BASE_URL}/getallIncomes`,
           fetchOptions
         );
         const expenseResponse = await fetch(
-          "http://localhost:8000/getAllExpense",
+          `${API_BASE_URL}/getAllExpense`,
           fetchOptions
         );
 
@@ -71,11 +73,7 @@ const BalanceSheet = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-indigo-100 to-white">
-        <SlidingCubeLoader
-          loading={true}
-          size={50}
-          color="rgba(74, 144, 226, 1)"
-        />
+        <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
       </div>
     );
   }

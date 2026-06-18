@@ -10,6 +10,10 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 const MONGOURI = process.env.MONGOURI;
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 mongoose.set("strictQuery", false);
 mongoose.connect(MONGOURI);
@@ -21,7 +25,16 @@ mongoose.connection.on("error", (err) => {
 });
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
+
+app.get("/", (_req, res) => {
+  res.json({ status: "ok", service: "drukbooks-api" });
+});
 
 // Import Models
 require("./Models/Employee");
@@ -83,7 +96,10 @@ app.use('/schedule-interview', interviewRoutes);
 // Create HTTP server and attach Socket.IO
 const server = http.createServer(app);
 const io = socketIo(server, {
-  cors: { origin: "*" }, // Adjust the origin as needed
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
 });
 
 // Role hierarchy (using same case as your routes)

@@ -8,11 +8,13 @@ import DialogBox from "../../../Components/Dialogbox";
 import Toast from "../../../Components/Toast";
 import ProfilePic from "../ProfilePic";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const uploadToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("http://localhost:8000/upload", {
+  const res = await fetch(`${API_BASE_URL}/upload`, {
     method: "POST",
     body: formData,
   });
@@ -42,7 +44,7 @@ function SettingEmp() {
     const fetchEmployee = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/getSingleEmployee/${user.employeeId}`,
+          `${API_BASE_URL}/getSingleEmployee/${user.employeeId}`,
           {
             method: "GET",
             headers: {
@@ -90,7 +92,7 @@ function SettingEmp() {
       const updatedStaff = { ...staff, profileImage: profileImageUrl };
 
       const response = await fetch(
-        `http://localhost:8000/updateEmployee/${user.employeeId}`,
+        `${API_BASE_URL}/updateEmployee/${user.employeeId}`,
         {
           method: "PUT",
           headers: {
@@ -127,7 +129,7 @@ function SettingEmp() {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteEmployee/${user.employeeId}`,
+        `${API_BASE_URL}/deleteEmployee/${user.employeeId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

@@ -8,6 +8,8 @@ import DialogBox from "../../../Components/Dialogbox";
 import { Alert, Snackbar } from "@mui/material";
 
 
+import { API_BASE_URL } from "../../../config/api";
+
 const AdvancedSalary = () => {
   const { token } = useAuthStore();
   const [showForm, setShowForm] = useState(false);
@@ -42,7 +44,7 @@ const AdvancedSalary = () => {
     const fetchEmployees = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/getAllAdvanceSalaries",
+          `${API_BASE_URL}/getAllAdvanceSalaries`,
           {
             method: "GET",
             headers: {
@@ -108,8 +110,8 @@ const AdvancedSalary = () => {
     try {
       const url =
         formType === "edit"
-          ? `http://localhost:8000/updateAdvanceSalary/${selectedEmployee._id}`
-          : "http://localhost:8000/addAdvanceSalary";
+          ? `${API_BASE_URL}/updateAdvanceSalary/${selectedEmployee._id}`
+          : `${API_BASE_URL}/addAdvanceSalary`;
 
       const method = formType === "edit" ? "PUT" : "POST";
 
@@ -134,7 +136,7 @@ const AdvancedSalary = () => {
 
         // Refetch the data to ensure UI is in sync with backend
         const refreshResponse = await fetch(
-          "http://localhost:8000/getAllAdvanceSalaries",
+          `${API_BASE_URL}/getAllAdvanceSalaries`,
           {
             method: "GET",
             headers: {
@@ -178,7 +180,7 @@ const AdvancedSalary = () => {
       if (status === "Rejected") {
         // First delete the request from the database
         const deleteResponse = await fetch(
-          `http://localhost:8000/deleteAdvanceSalary`,
+          `${API_BASE_URL}/deleteAdvanceSalary`,
           {
             method: "DELETE",
             headers: {
@@ -208,7 +210,7 @@ const AdvancedSalary = () => {
       } else {
         // For approved requests, just update the status
         const response = await fetch(
-          `http://localhost:8000/updateAdvanceSalary/${id}`,
+          `${API_BASE_URL}/updateAdvanceSalary/${id}`,
           {
             method: "PUT",
             headers: {
@@ -270,7 +272,7 @@ const AdvancedSalary = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        "http://localhost:8000/deleteAdvanceSalary",
+        `${API_BASE_URL}/deleteAdvanceSalary`,
         {
           method: "DELETE",
           headers: {

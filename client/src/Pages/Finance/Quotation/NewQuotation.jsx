@@ -83,7 +83,7 @@
 //     console.log("Invoice Data:", invoiceData);
 
 //     try {
-//       const response = await fetch("http://localhost:8000/addQuotation", {
+//       const response = await fetch(`${API_BASE_URL}/addQuotation`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -224,6 +224,8 @@ import NewLineTable from "../../../Components/NewLineTable";
 import "./invoice.css";
 import useCompanyStore from "../../../store/useCompanyStore";
 
+import { API_BASE_URL } from "../../../config/api";
+
 export default function NewQuotation() {
   const navigate = useNavigate();
   const [clientName, setClientName] = useState("");
@@ -328,7 +330,7 @@ export default function NewQuotation() {
     console.log("Invoice Data:", invoiceData);
 
     try {
-      const response = await fetch("http://localhost:8000/addQuotation", {
+      const response = await fetch(`${API_BASE_URL}/addQuotation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

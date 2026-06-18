@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import Toast from "../../../../Components/Toast.js";
-import useAuthStore from "../../../../store/useAuthStore.js";
+import Toast from "../../../../Components/Toast.jsx";
+import useAuthStore from "../../../../store/useAuthStore.jsx";
 import DisplayUserInfo from "./DisplayUserInfo.jsx";
 import ActionBtn from "./ActionBtn.jsx";
 import ProfilePic from "../../ProfilePic.jsx";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const uploadToCloudinary = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await fetch("http://localhost:8000/upload", {
+  const res = await fetch(`${API_BASE_URL}/upload`, {
     method: "POST",
     body: formData,
   });
@@ -41,7 +43,7 @@ function UserInfo() {
     const fetchEmployee = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/getOwner/${user.id}`,
+          `${API_BASE_URL}/getOwner/${user.id}`,
           {
             method: "GET",
             headers: {
@@ -83,7 +85,7 @@ function UserInfo() {
 
       const updatedStaff = { ...staff, profileImage: profileImageUrl };
       const response = await fetch(
-        `http://localhost:8000/updateOwner/${user.id}`,
+        `${API_BASE_URL}/updateOwner/${user.id}`,
         {
           method: "PUT",
           headers: {
@@ -118,7 +120,7 @@ function UserInfo() {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/deleteOwner/${user.id}`,
+        `${API_BASE_URL}/deleteOwner/${user.id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },

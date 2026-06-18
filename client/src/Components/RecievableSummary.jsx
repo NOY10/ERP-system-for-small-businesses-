@@ -7,7 +7,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAuthStore from "../store/useAuthStore";
 
-const PayableSummary = ({
+import { API_BASE_URL } from "../config/api";
+
+const RecievableSummary = ({
   startDate,
   setStartDate,
   endDate,
@@ -17,7 +19,7 @@ const PayableSummary = ({
 }) => {
   const [dateRange, setDateRange] = useState("This Month");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [payableData, setPayableData] = useState({
+  const [recievableData, setRecievableData] = useState({
     totalOutstanding: 0,
     dueToday: 0,
     dueWithin30Days: 0,
@@ -26,10 +28,10 @@ const PayableSummary = ({
   const { token } = useAuthStore();
   // Fetch payable summary from backend
   useEffect(() => {
-    const fetchPayableData = async () => {
+    const fetchRecievableData = async () => {
       setLoading(true); // Start loading
       try {
-        const response = await fetch("http://localhost:8000/expenseSummary", {
+        const response = await fetch(`${API_BASE_URL}/incomeSummary`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -37,19 +39,19 @@ const PayableSummary = ({
           },
         });
         const data = await response.json();
-        setPayableData({
+        setRecievableData({
           totalOutstanding: data.totalOutstanding || 0,
           dueToday: data.dueToday || 0,
           dueWithin30Days: data.dueWithin30Days || 0,
         });
       } catch (error) {
-        console.error("Error fetching payable summary:", error);
+        console.error("Error fetching recievable summary:", error);
       } finally {
         setLoading(false); // Stop loading
       }
     };
 
-    fetchPayableData();
+    fetchRecievableData();
   }, [token]);
 
   useEffect(() => {
@@ -128,9 +130,9 @@ const PayableSummary = ({
     <div className="flex flex-wrap items-center justify-between bg-blue-100 rounded-lg p-4 mb-4 shadow-md space-y-4 md:space-y-0">
       {/* Total Outstanding Payables */}
       <div className="flex items-center w-full md:w-auto">
-        <div className="bg-red-200 text-red-600 rounded-full p-2 mr-4">
+        <div className="bg-green-200 text-green-600 rounded-full p-2 mr-4">
           <svg
-            className="h-10 w-10 text-red-500"
+            className="h-10 w-10 text-green-500"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -144,12 +146,12 @@ const PayableSummary = ({
           </svg>
         </div>
         <div>
-          <p className="text-sm text-gray-500">Total Outstanding Payables</p>
+          <p className="text-sm text-gray-500">Total Outstanding Recievable</p>
           {loading ? (
             <p className="text-lg font-semibold animate-pulse bg-gray-200 rounded-md w-24 h-6"></p>
           ) : (
             <p className="text-lg font-semibold">
-              Nu. {payableData.totalOutstanding.toLocaleString()}
+              Nu. {recievableData.totalOutstanding.toLocaleString()}
             </p>
           )}
         </div>
@@ -161,8 +163,8 @@ const PayableSummary = ({
         {loading ? (
           <p className="text-base font-semibold animate-pulse bg-gray-200 rounded-md w-16 h-5 mx-auto md:mx-0"></p>
         ) : (
-          <p className="text-base font-semibold text-red-500">
-            Nu. {payableData.dueToday.toLocaleString()}
+          <p className="text-base font-semibold text-green-500">
+            Nu. {recievableData.dueToday.toLocaleString()}
           </p>
         )}
       </div>
@@ -173,8 +175,8 @@ const PayableSummary = ({
         {loading ? (
           <p className="text-base font-semibold animate-pulse bg-gray-200 rounded-md w-20 h-5 mx-auto md:mx-0"></p>
         ) : (
-          <p className="text-base font-semibold text-red-500">
-            Nu. {payableData.dueWithin30Days.toLocaleString()}
+          <p className="text-base font-semibold text-green-500">
+            Nu. {recievableData.dueWithin30Days.toLocaleString()}
           </p>
         )}
       </div>
@@ -265,4 +267,4 @@ const PayableSummary = ({
   );
 };
 
-export default PayableSummary;
+export default RecievableSummary;

@@ -5,6 +5,8 @@ import { FaRegEye, FaEdit } from "react-icons/fa";
 import useAuthStore from "../../store/useAuthStore";
 import ConfirmationModal from "./ConfirmationModal"; 
 
+import { API_BASE_URL } from "../../config/api";
+
 const colorClasses = [
   "bg-red-500",
   "bg-blue-500",
@@ -44,7 +46,7 @@ const LeaveRequest = ({ onViewDetails, pendingLeaves }) => {
 
   const handleCancel = async () => {
     try {
-      const response = await fetch("http://localhost:8000/deleteLeave", {
+      const response = await fetch(`${API_BASE_URL}/deleteLeave`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

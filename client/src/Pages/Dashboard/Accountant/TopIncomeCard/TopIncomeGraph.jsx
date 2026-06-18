@@ -2,6 +2,8 @@ import { PieChart } from "@mui/x-charts/PieChart";
 import React, { memo, useEffect, useState } from "react";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 function TopIncomeGraph({ yearDropDown }) {
   const [loading, setLoading] = useState(true);
   const [income, setIncome] = useState([]);
@@ -100,7 +102,7 @@ function TopIncomeGraph({ yearDropDown }) {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:8000/getallIncomes", {
+        const response = await fetch(`${API_BASE_URL}/getallIncomes`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

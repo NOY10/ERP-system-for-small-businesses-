@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import register from "./register.svg";
 
+import { API_BASE_URL } from "../../config/api";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -64,7 +66,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("http://localhost:8000/sendotpuser", {
+      const response = await fetch(`${API_BASE_URL}/sendotpuser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +94,7 @@ const SignUp = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/signupUser", {
+      const response = await fetch(`${API_BASE_URL}/signupUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

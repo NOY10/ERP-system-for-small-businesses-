@@ -26,7 +26,7 @@
 //   useEffect(() => {
 //     const fetchLeaveTypes = async () => {
 //       try {
-//         const response = await fetch("http://localhost:8000/getAllLeaveTypes", {
+//         const response = await fetch(`${API_BASE_URL}/getAllLeaveTypes`, {
 //           method: "GET",
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
@@ -65,8 +65,8 @@
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     const url = isEditing
-//       ? `http://localhost:8000/updateLeave/${passedLeaveData._id}`
-//       : "http://localhost:8000/addLeave";
+//       ? `${API_BASE_URL}/updateLeave/${passedLeaveData._id}`
+//       : `${API_BASE_URL}/addLeave`;
 //     const method = isEditing ? "PUT" : "POST";
 
 //     try {
@@ -218,6 +218,8 @@ import { RxCrossCircled } from "react-icons/rx";
 import useAuthStore from "../../../store/useAuthStore";
 import { Alert, Snackbar } from "@mui/material";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const RequestLeaveForm = ({ onClose, leaveData, leaveType: propLeaveType }) => {
   const { token } = useAuthStore();
   const location = useLocation();
@@ -249,7 +251,7 @@ const RequestLeaveForm = ({ onClose, leaveData, leaveType: propLeaveType }) => {
   useEffect(() => {
     const fetchLeaveTypes = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllLeaveTypes", {
+        const response = await fetch(`${API_BASE_URL}/getAllLeaveTypes`, {
           method: "GET",
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -285,8 +287,8 @@ const RequestLeaveForm = ({ onClose, leaveData, leaveType: propLeaveType }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = isEditing
-      ? `http://localhost:8000/updateLeave/${passedLeaveData._id}`
-      : "http://localhost:8000/addLeave";
+      ? `${API_BASE_URL}/updateLeave/${passedLeaveData._id}`
+      : `${API_BASE_URL}/addLeave`;
     const method = isEditing ? "PUT" : "POST";
 
     try {

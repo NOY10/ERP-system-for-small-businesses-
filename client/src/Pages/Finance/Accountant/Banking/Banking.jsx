@@ -5,6 +5,8 @@ import DKIMG from "./icons/DK.png";
 import BankLayout from "./BankLayout";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 function Banking() {
   const navigate = useNavigate();
   const { token } = useAuthStore();
@@ -19,7 +21,7 @@ function Banking() {
     const fetchBankDetails = async () => {
       try {
         if (!accountNumber || !accountName) {
-          const response = await fetch("http://localhost:8000/getBankDetails", {
+          const response = await fetch(`${API_BASE_URL}/getBankDetails`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

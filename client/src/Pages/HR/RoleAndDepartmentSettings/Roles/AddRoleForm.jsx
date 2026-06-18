@@ -3,6 +3,8 @@ import useAuthStore from "../../../../store/useAuthStore";
 import Toast from "../../../../Components/Toast";
 import Dialogbox from "../../../../Components/Dialogbox";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 const AddRoleForm = ({
   title,
   isVisible,
@@ -38,8 +40,8 @@ const AddRoleForm = ({
     }
 
     const url = existingRole
-      ? `http://localhost:8000/updateRole/${existingRole._id}`
-      : "http://localhost:8000/addRole";
+      ? `${API_BASE_URL}/updateRole/${existingRole._id}`
+      : `${API_BASE_URL}/addRole`;
     const method = existingRole ? "PUT" : "POST";
 
     try {

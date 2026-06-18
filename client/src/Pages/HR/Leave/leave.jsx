@@ -14,6 +14,8 @@ import {
 } from "react-icons/fa6";
 import { FcLeave } from "react-icons/fc";
 
+import { API_BASE_URL } from "../../../config/api";
+
 const LeaveManagement = () => {
   const [selectedLeave, setSelectedLeave] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -27,7 +29,7 @@ const LeaveManagement = () => {
   useEffect(() => {
     const fetchLeaveHistory = async () => {
       try {
-        const response = await fetch("http://localhost:8000/getAllLeaves", {
+        const response = await fetch(`${API_BASE_URL}/getAllLeaves`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

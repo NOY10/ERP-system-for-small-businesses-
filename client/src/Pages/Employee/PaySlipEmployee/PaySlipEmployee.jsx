@@ -5,6 +5,8 @@ import "jspdf-autotable";
 import { Alert, Snackbar } from "@mui/material";
 
 
+import { API_BASE_URL } from "../../../config/api";
+
 const EmployeePayslips = () => {
   const { token, user } = useAuthStore();
   const employeeId = user?.id;
@@ -42,7 +44,7 @@ const EmployeePayslips = () => {
   const fetchEmployeePayslips = async (start, end) => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/employee-payslips/${employeeId}`, {
+      const response = await fetch(`${API_BASE_URL}/employee-payslips/${employeeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

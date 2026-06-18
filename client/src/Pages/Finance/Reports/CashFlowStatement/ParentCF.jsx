@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { SlidingCubeLoader } from "react-loaders-kit";
+import CircularProgress from "@mui/material/CircularProgress";
 import useAuthStore from "../../../../store/useAuthStore";
 import CashFlowTable from "./CashFlowStatement";
+
+import { API_BASE_URL } from "../../../../config/api";
 
 const safeString = (str) => (typeof str === "string" ? str.toLowerCase().trim() : "");
 
@@ -23,7 +25,7 @@ function ParentCF({ comparisonData, combinedData }) {
         };
 
         const [accountResponse] = await Promise.all([
-          axios.get("http://localhost:8000/getAllAccounts", { headers }),
+          axios.get(`${API_BASE_URL}/getAllAccounts`, { headers }),
         ]);
 
         setAccounts(accountResponse.data?.accounts || []);
@@ -98,12 +100,7 @@ function ParentCF({ comparisonData, combinedData }) {
     <div className="container mx-auto p-2">
       {loading ? (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-200 to-white">
-          <SlidingCubeLoader
-            loading={true}
-            size={50}
-            colors={["#2887D4BE", "#0976C3BE"]}
-            duration={2}
-          />
+          <CircularProgress size={50} sx={{ color: "rgba(74, 144, 226, 1)" }} />
         </div>
       ) : (
         <CashFlowTable

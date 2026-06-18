@@ -4,6 +4,8 @@ import DialogBox from "../../../../Components/Dialogbox";
 import useBankStore from "../../../../contexts/bankStore";
 import useAuthStore from "../../../../store/useAuthStore";
 
+import { API_BASE_URL } from "../../../../config/api";
+
 function AddBank() {
   const navigate = useNavigate();
   const { token } = useAuthStore();
@@ -49,7 +51,7 @@ function AddBank() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/addBankDetails", {
+      const response = await fetch(`${API_BASE_URL}/addBankDetails`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
