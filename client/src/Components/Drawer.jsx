@@ -9,7 +9,6 @@ import {
 import { GoPeople } from "react-icons/go";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { MdOutlineCancel } from "react-icons/md";
-import { SiShopware } from "react-icons/si";
 import { TbMoneybag } from "react-icons/tb";
 import { Link, NavLink } from "react-router-dom";
 import { GiPayMoney } from "react-icons/gi";
@@ -91,11 +90,14 @@ const Drawer = () => {
       <div className="flex items-center justify-between md:justify-center p-4 md:p-4 text-center">
         <Link
           to="/"
-          className="flex items-center gap-3 text-xl font-extrabold tracking-tight dark:text-white text-slate-900"
+          className="flex items-center justify-center"
           onClick={handleCloseSidebar}
         >
-          <SiShopware className={icon} />
-          {activeMenu && <span className="text-black">DRUKBOOKS</span>}
+          <img
+            src="/sidebar-logo.svg"
+            alt="DRUKBOOKS"
+            className={activeMenu ? "h-12 w-52" : "h-10 w-10 object-left"}
+          />
         </Link>
 
         {activeMenu && (
